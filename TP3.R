@@ -5,13 +5,21 @@ message("x <- 1:10 donne le vecteur [1,2,...,10]")
 sample(x) 
 message("sample(x) tire aléatoirement tous les éléments de x et les place en vecteur")
 sample(x, replace = TRUE) 
+message("même chose que ci-dessus mais avec remise")
 sample(x[x > 8])
+message("sample(x[x > 8]) tire parmi les éléments de x supérieurs à 8")
 sample(x[x > 9])
+message("comme sample(x)")
 sample(x[x > 10])
+message("sample(x[x > 10]) retourne integer(0) comme aucun x n'est supérieur à 10")
 resample <- function(x, ...) x[sample(length(x), ...)]
+message("resample <- function(x, ...) x[sample(length(x), ...)] créer la fonction resample")
 resample(x[x > 8])
+message("resample(x[x > 8]) fait la même chose que sample(x[x > 8])")
 resample(x[x > 9])
+message("resample(x[x > 9]) tire parmi les éléments de x > 9 (ici 10)")
 resample(x[x > 10])
+message("comme sample(x[x > 10])
 
 #Exemple d'application : l'épreuve du lancer de dé
 
