@@ -1,3 +1,5 @@
+#TP3.R Auteurs : Corentin CHEDOTAL & Mayeul TOUCHARD
+
 #Exercice 3.1
 
 x <- 1:10 
