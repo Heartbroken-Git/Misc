@@ -106,7 +106,7 @@ comparaisonbinpois = function (x, n, p){
   data <- cbind(binomiale,poisson)
   rownames(data) <- levels(A)
   barplot(t(data),beside=T,legend.text=colnames(data),
-          col=c("grey50","grey80"),ylab="Probabilitées", xlab="k")
+          col=c("grey50","grey80"),ylab="Probabilités", xlab="k")
   erreurn = max(abs(binomiale-dpois(x,5)))
   message("L'erreur entre la loi binomiale et la loi de Poisson est de ", erreurn)
 }
@@ -146,5 +146,43 @@ message("L'approximation par loi de Poisson tend à être précise à la cinqui�
 
 #Exercice 3.5
 
-?pbinom
-?ppois
+simulation = function(n, p){
+  tablex = c(rbinom(0:499, n, p))
+
+  plot(0:499, tablex, main="Mesures binomiales")
+
+  tableaufreq = c(table(tablex)/500)
+
+  par(mfrow =c(1,2))
+  barplot(tableaufreq, ylab="fréquences",main="Fréquences empiriques")
+
+  barplot(dbinom(0:15, n, p), ylab="fréquences",main="Fréquences théoriques",names.arg=0:15)
+
+  par(mfrow =c(1,2))
+  barplot(cumsum(tableaufreq), ylab="fréquences",main="Fréquences cumulées \n empiriques")
+
+  barplot(cumsum(dbinom(0:15, n, p)),  ylab="fréquences",main="Fréquences cumulées \n théoriques",names.arg=0:15)
+
+  moyenne = mean(tablex, 500)
+  message("La moyenne empirique pour un échantillon de 500 est ", moyenne)
+
+  esperance = weighted.mean(0:15,dbinom(0:15, n, p))
+  message("L'espérance de la loi binomiale est ", esperance)
+  message("La moyenne empirique et l'espérance sont assez proche")
+
+  variance = var(tablex)
+  message("La variance empirique de l'échantillon est ", variance)
+
+  variance = n*p*(1-p)
+  message("La variance de la loi binomiale est ", variance)
+  message("Les deux variances sont proches")
+}
+
+simulation(15, 0.3)
+
+message("Comme demandé à la question 12, une deuxième simulation est exécutée")
+simulation(15, 0.3)
+
+message("En conclusion :")
+message("On remarque que la loi binomiale, bien que théorique, est une bonen approximation des différents résultats obtenus lors du tirage des échantillons.")
+message("En effet, les résultats tels que l'espérance, la moyenen ou la variance sont relativement proches.")
