@@ -1,4 +1,4 @@
-#Exercice 3.1 #A FINIR DE REMPLIR
+#Exercice 3.1
 
 x <- 1:10 
 message("x <- 1:10 donne le vecteur [1,2,...,10]")
@@ -19,7 +19,7 @@ message("resample(x[x > 8]) fait la même chose que sample(x[x > 8])")
 resample(x[x > 9])
 message("resample(x[x > 9]) tire parmi les éléments de x > 9 (ici 10)")
 resample(x[x > 10])
-message("comme sample(x[x > 10])
+message("comme sample(x[x > 10]")
 
 #Exemple d'application : l'épreuve du lancer de dé
 
