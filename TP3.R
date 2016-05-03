@@ -92,3 +92,59 @@ calculRn(10000, 100, 0.01, 0.5)
 calculRn(50000, 100, 0.01, 0.5)
 
 message("On constate que Rn tend vers 0, on en conclut que P(Wn) converge vers p quand n tend vers l'infini")
+
+#Exercice 3.3
+
+approxPoisson = function(k, l) {
+  return((l^(k)/factorial(k))*exp(-l))
+}
+
+comparaisonbinpois = function (x, n, p){
+  poisson <- approxPoisson(x, 5)
+  binomiale <- dbinom(x,n,p)
+  A <- gl(5,1,5,labels=x)
+  data <- cbind(binomiale,poisson)
+  rownames(data) <- levels(A)
+  barplot(t(data),beside=T,legend.text=colnames(data),
+          col=c("grey50","grey80"),ylab="Probabilitées", xlab="k")
+  erreurn = max(abs(binomiale-dpois(x,5)))
+  message("L'erreur entre la loi binomiale et la loi de Poisson est de ", erreurn)
+}
+comparaisonbinpois(0:10, 10, 0.5)
+comparaisonbinpois(0:20, 20, 0.25)
+comparaisonbinpois(0:50, 50, 0.1)
+comparaisonbinpois(0:100, 100, 0.05)
+
+message("On en conclut qu'une approximation par loi binomiale est d'autant plus proche de la loi de Poisson que n est grand")
+
+#Exercice 3.4
+
+message("Cette épidémie suit une loi binomiale de paramètre n=100 et p=0.02")
+
+n = 100
+p = 0.02
+x = 2
+repBino=pbinom(x, n, p)
+message("La probabilité d'avoir plus d'un malade dans le village est de ", repBino)
+
+x = 9.9
+repBino=pbinom(x, n, p, lower.tail=TRUE)
+message("La probabilité d'avoir au plus dix malades dans le village est de ", repBino)
+
+message("Afin d'approximer la loi binomiale par une loi de Poisson on utilisera l=2")
+x = 2
+l = 2
+repPois=ppois(x, l)
+message("La probabilité par approximation avec loi de Poisson d'avoir plus d'un malade dans le village est de ", repPois)
+
+message("Afin d'approximer la loi binomiale par une loi de Poisson on utilisera l=2")
+x = 9.9
+repPois=ppois(x, l, lower.tail=TRUE)
+message("La probabilité par approximation avec loi de Poisson d'avoir au plus dix malades dans le village est de ", repPois)
+
+message("L'approximation par loi de Poisson tend à être précise à la cinquième décimale près")
+
+#Exercice 3.5
+
+?pbinom
+?ppois
