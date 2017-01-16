@@ -6,6 +6,7 @@ __lua__
 
 x1 = 0 x2 = 124
 y1 = 47 y2 = 47
+xb = 63 yb = 63 depb = 1
 
 function _update()
 	if (btn(3,0) and y1<111) then
@@ -20,12 +21,26 @@ function _update()
 	if (btn(2,1) and y2>0) then
 		y2 = y2 - 1
 	end
+	up_ball()
 end
 
 function _draw()
 	cls(0)
 	rectfill(x1,y1,x1+3,y1+16,7)
 	rectfill(x2,y2,x2+3,y2+16,7)
+	circfill(xb,yb,2,7)
+end
+
+function dr_ball() --ne marche pas, s'en servir pour faire up_ball()
+	if (depb == 1) then
+		circfill(xb-1,yb-1,2,7)
+	elseif (depb == 2) then
+		circfill(xb-1,yb+1,2,7)
+	elseif (depb == 3) then
+		circfill(xb+1,yb+1,2,7)
+	else
+		circfill(xb+1,yb-1,2,7)
+	end
 end
 __gfx__
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
