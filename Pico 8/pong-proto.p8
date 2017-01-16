@@ -6,7 +6,7 @@ __lua__
 
 x1 = 0 x2 = 124
 y1 = 47 y2 = 47
-xb = 63 yb = 63 depb = 1
+xb = 50 yb = 63 depb = flr(rnd(4))
 
 function _update()
 	if (btn(3,0) and y1<111) then
@@ -22,6 +22,7 @@ function _update()
 		y2 = y2 - 1
 	end
 	up_ball()
+	up_wallcheck()
 end
 
 function _draw()
@@ -31,15 +32,31 @@ function _draw()
 	circfill(xb,yb,2,7)
 end
 
-function dr_ball() --ne marche pas, s'en servir pour faire up_ball()
-	if (depb == 1) then
-		circfill(xb-1,yb-1,2,7)
+function up_ball()
+	if (depb == 0) then
+		xb=xb-1 yb=yb-1
+	elseif (depb == 1) then
+		xb=xb-1 yb=yb+1
 	elseif (depb == 2) then
-		circfill(xb-1,yb+1,2,7)
-	elseif (depb == 3) then
-		circfill(xb+1,yb+1,2,7)
+		xb=xb+1 yb=yb+1
 	else
-		circfill(xb+1,yb-1,2,7)
+		xb=xb+1 yb=yb-1
+	end
+end
+
+function up_wallcheck()
+	if (yb == 2) then
+		if (depb == 0) then
+			depb = 1
+		else
+			depb = 2
+		end
+	elseif (yb == 125) then
+		if (depb == 1) then
+			depb = 0
+		else
+			depb = 3
+		end
 	end
 end
 __gfx__
