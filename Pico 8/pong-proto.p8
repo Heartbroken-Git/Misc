@@ -23,6 +23,7 @@ function _update()
 	end
 	up_ball()
 	up_wallcheck()
+	up_paddlecheck_p1()
 end
 
 function _draw()
@@ -56,6 +57,18 @@ function up_wallcheck()
 			depb = 0
 		else
 			depb = 3
+		end
+	end
+end
+
+function up_paddlecheck_p1()
+	if (xb == 5) then
+		if (yb >= y1 and yb <= y1+16) then
+			if (depb == 0) then
+				depb = 3
+			elseif (depb == 1) then
+				depb = 2
+			end
 		end
 	end
 end
