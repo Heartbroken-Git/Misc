@@ -7,6 +7,7 @@ __lua__
 x1 = 0 x2 = 124
 y1 = 47 y2 = 47
 xb = 50 yb = 63 depb = flr(rnd(4))
+scorep1 = 0 scorep2 = 0
 
 function _update()
 	if (btn(3,0) and y1<111) then
@@ -24,6 +25,8 @@ function _update()
 	up_ball()
 	up_wallcheck()
 	up_paddlecheck_p1()
+	up_paddlecheck_p2()
+	up_scorecheck()
 end
 
 function _draw()
@@ -71,6 +74,39 @@ function up_paddlecheck_p1()
 			end
 		end
 	end
+end
+
+function up_paddlecheck_p2()
+	if (xb == 122) then
+		if (yb >= y2 and yb <= y2+16) then
+			if (depb == 3) then
+				depb = 0
+			elseif (depb == 2) then
+				depb = 1
+			end
+		end
+	end
+end
+
+function up_scorecheck()
+	if (xb <= -2) then
+		scorep2 = scorep2 + 1 --possibly add some form of display here
+		resetball()
+	elseif (xb >= 129) then
+		scorep1 = scorep1 + 1 --cf up there
+		resetball()
+	end
+	if (scorep1 >= 5) then
+		--end the game as a victory for p1
+	elseif (scorep2 >= 5) then
+		--end the game as a victory for p2
+	end
+end
+
+function resetball()
+	xb = 50
+	yb = 63
+	depb = flr(rnd(4))
 end
 __gfx__
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
