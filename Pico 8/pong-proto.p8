@@ -8,6 +8,7 @@ x1 = 0 x2 = 124
 y1 = 47 y2 = 47
 xb = 50 yb = 63 depb = flr(rnd(4))
 scorep1 = 0 scorep2 = 0
+gamestarted = true --should be false once title screen ready
 
 function _update()
 	if (btn(3,0) and y1<111) then
@@ -30,10 +31,20 @@ function _update()
 end
 
 function _draw()
-	cls(0)
-	rectfill(x1,y1,x1+3,y1+16,7)
-	rectfill(x2,y2,x2+3,y2+16,7)
-	circfill(xb,yb,2,7)
+	if gamestarted then
+		cls(0)
+		rectfill(x1,y1,x1+3,y1+16,7)
+		rectfill(x2,y2,x2+3,y2+16,7)
+		circfill(xb,yb,2,7)
+	else
+		if (scorep1 >= 5) then
+			d_win(1)
+		elseif (scorep2 >= 5) then
+			d_win(2)	
+		else
+			--display title screen
+		end
+	end
 end
 
 function up_ball()
@@ -96,10 +107,25 @@ function up_scorecheck()
 		scorep1 = scorep1 + 1 --cf up there
 		resetball()
 	end
-	if (scorep1 >= 5) then
-		--end the game as a victory for p1
-	elseif (scorep2 >= 5) then
-		--end the game as a victory for p2
+	if (scorep1 >= 5 or scorep2 >= 5) then
+		gamestarted = false
+	end
+end
+
+function d_win(player)
+	if (player == 1) then
+		cls(5)
+		print("player 1 won !",36,60,7)
+		--add the "press any key" prompt
+		cursor()
+	elseif (player == 2) then
+		cls(6)
+		print("player 2 won !",36,60,0)
+		--add the "press any key" prompt
+		cursor()
+		color(7)
+	else
+		--error or tie screen maybe ?
 	end
 end
 
@@ -108,6 +134,7 @@ function resetball()
 	yb = 63
 	depb = flr(rnd(4))
 end
+
 __gfx__
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
